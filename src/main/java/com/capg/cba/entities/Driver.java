@@ -11,11 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="driver")
 public class Driver extends AbstractUser{
 	@Id
-	@GeneratedValue
 	private int driverId;
 	private String licenceNo;
 	private float rating;
@@ -28,6 +29,7 @@ public class Driver extends AbstractUser{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="cabId")
 	private Cab cab;
+	@JsonManagedReference(value="user-person")
 	@OneToMany(mappedBy="driver")
 	private List<TripBooking> tripbooking1;	
 	public List<TripBooking> getTripbooking() {

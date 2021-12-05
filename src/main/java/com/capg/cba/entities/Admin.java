@@ -1,8 +1,14 @@
 package com.capg.cba.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Admin")
 public class Admin extends AbstractUser{
 
-	
+	@Id
 	private int adminId;
 	private String username;
 	private String password;

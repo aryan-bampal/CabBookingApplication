@@ -10,11 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="Customer")
 public class Customer extends AbstractUser{
 	@Id
-	@GeneratedValue
 	private int customerId;
 	private String username;
 	private String password;
@@ -22,6 +23,7 @@ public class Customer extends AbstractUser{
 	private int mobileNumber;
 	private String email;
 	
+	@JsonManagedReference(value="user-person1")
 	@OneToMany(mappedBy="customer")
 	private List<TripBooking> tripbooking;
 	

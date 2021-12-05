@@ -3,17 +3,19 @@ package com.capg.cba.entities;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="TripBooking")
 public class TripBooking {
 	@Id
-	@GeneratedValue
 	private int tripBookingId;
 	private int customerId;
 	private int driverId;
@@ -24,7 +26,7 @@ public class TripBooking {
 	private boolean status;
 	private float distanceInKm;
 	private float bill;
-	
+	@JsonBackReference(value="user-person")
 	@ManyToOne
 	@JoinColumn(name="Driver")
 	private Driver driver;
@@ -41,7 +43,8 @@ public class TripBooking {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	@ManyToOne
+	@JsonBackReference(value="user-person1")
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Customer")
 	private Customer customer;
 	

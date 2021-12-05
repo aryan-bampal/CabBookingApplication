@@ -39,8 +39,11 @@ It is used to map web requests onto specific handler classes and/or handler meth
 	requests matched with given URI expression.*/
 
 	@PostMapping(path="/insert")
-	public ResponseEntity<Object> insertDriver(@RequestBody Driver driver) {
+	public ResponseEntity<Object> insertDriver(@RequestBody Driver driver) throws DriverNotFoundException
+	{
 		Driver driver1=service.insertDriver(driver);
+		if(driver.getDriverId()==0)
+			throw new DriverNotFoundException("Oops!!No Driver found for given Id");
 		ResponseEntity<Object> responseEntity = new ResponseEntity(driver1, HttpStatus.OK);
 		System.out.println("response entity=" + responseEntity);
 		return responseEntity;
@@ -54,7 +57,7 @@ It is used to map web requests onto specific handler classes and/or handler meth
 	Driver driver=service.viewDriver(driverId);
 		if(driver==null)
 	{
-			throw new DriverNotFoundException("product not found for id=" + driverId);
+			throw new DriverNotFoundException("Driver not found for id=" + driverId);
 		}
 		
 		return new ResponseEntity<Driver>(driver,new HttpHeaders(),HttpStatus.OK);
@@ -62,13 +65,21 @@ It is used to map web requests onto specific handler classes and/or handler meth
 //mapping HTTP PUT requests onto specific handler methods.
 
 	@PutMapping(path="/update")
-	public ResponseEntity<Driver> updateDriver(@RequestBody Driver driver){
-		driver=service.updateDriver(driver);
-	return new ResponseEntity<Driver>(driver,new HttpHeaders(),HttpStatus.OK);
+	public ResponseEntity<Driver> updateDriver(@RequestBody Driver driver) throws DriverNotFoundException
+	{
+	    driver=service.updateDriver(driver);
+        if((driver.getDriverId()==0)||(driver.getLicenceNo()==null)||(driver.getRating()==0||(driver.getLicenceNo().length()==0)))
+			throw new DriverNotFoundException("enter the Driver Details to be updated");
+		
+	    return new ResponseEntity<Driver>(driver,new HttpHeaders(),HttpStatus.OK);
 	}
      @GetMapping(path="/getbestdrivers")
-	public  ResponseEntity<List<Driver>> viewBestDrivers(){
+	public  ResponseEntity<List<Driver>> viewBestDrivers() throws DriverNotFoundException
+     {
 		List<Driver> list=service.viewBestDrivers();
+		if(list.isEmpty())
+	 		throw new DriverNotFoundException("Oops!!The List is Empty");
+
 		return new ResponseEntity<List<Driver>>(list,new HttpHeaders(),HttpStatus.OK);
 	}
 	@DeleteMapping(path="/delete/{driverId}")

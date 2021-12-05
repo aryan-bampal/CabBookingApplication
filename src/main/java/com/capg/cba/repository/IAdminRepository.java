@@ -54,7 +54,7 @@ public class IAdminRepository implements IAdminRepositoryI{
 	@Override
 	public List<TripBooking> getTripsCabwise() {
 		// TODO Auto-generated method stub
-		Query query = entityManager.createQuery("Select e from TripBooking e group by driverId");
+		Query query = entityManager.createQuery("Select e from TripBooking e order by driverId");
 		List<TripBooking> q=query.getResultList();
 		return q;
 	}
@@ -62,7 +62,7 @@ public class IAdminRepository implements IAdminRepositoryI{
 	@Override
 	public List<TripBooking> getTripsCustomerwise() {
 		// TODO Auto-generated method stub
-		Query query = entityManager.createQuery("Select e from TripBooking e group by customerId");
+		Query query = entityManager.createQuery("Select e from TripBooking e order by customerId");
 		List<TripBooking> q=query.getResultList();
 		return q;
 	}
@@ -70,7 +70,7 @@ public class IAdminRepository implements IAdminRepositoryI{
 	@Override
 	public List<TripBooking> getTripsDatewise() {
 		// TODO Auto-generated method stub
-		Query query = entityManager.createQuery("Select e from TripBooking e group by fromLocalDateTime");
+		Query query = entityManager.createQuery("Select e from TripBooking e order by fromLocalDateTime");
 		List<TripBooking> q=query.getResultList();
 		return q;
 	}
@@ -78,7 +78,7 @@ public class IAdminRepository implements IAdminRepositoryI{
 	@Override
 	public List<TripBooking> getAllTripsForDays(int customerid, LocalDateTime fromdate, LocalDateTime todate) {
 		// TODO Auto-generated method stub
-		Query query = entityManager.createQuery("Select e from TripBooking e where eventTimestamp >= :fromDatetime and eventTimestamp < :toDatetime");
+		Query query = entityManager.createQuery("Select e from TripBooking e where e.fromLocalDateTime >= :fromDatetime and e.toLocalDateTime <= :toDatetime");
 		query.setParameter("fromDatetime", fromdate);
 		query.setParameter("toDatetime", todate);
 		List<TripBooking> q=query.getResultList();

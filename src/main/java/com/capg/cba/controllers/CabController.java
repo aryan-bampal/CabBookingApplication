@@ -16,7 +16,8 @@ package com.capg.cba.controllers;
 	import org.springframework.web.bind.annotation.RestController;
     import com.capg.cba.entities.Cab;
     import com.capg.cba.repository.CabNotFoundException;
-    import com.capg.cba.services.CabService;
+import com.capg.cba.repository.DriverNotFoundException;
+import com.capg.cba.services.CabService;
 
 import io.swagger.annotations.Api;
 
@@ -41,8 +42,11 @@ import io.swagger.annotations.Api;
 		requests matched with given URI expression.*/
 
 		@PostMapping(path="/insert")
-		public ResponseEntity<Object> insertCab(@RequestBody Cab cab) {
+		public ResponseEntity<Object> insertCab(@RequestBody Cab cab) throws CabNotFoundException {
 			Cab cab1=service.insertCab(cab);
+			if(cab.getCabId()==0)
+				throw new CabNotFoundException("Oops!!No Driver found for given Id");
+
 			ResponseEntity<Object> responseEntity = new ResponseEntity(cab1, HttpStatus.OK);
 			System.out.println("response entity=" + responseEntity);
 			return responseEntity;
@@ -57,7 +61,7 @@ import io.swagger.annotations.Api;
 			Cab cab=service.findCabById(cabId);
 			if(cab==null)
 			{
-				throw new CabNotFoundException("product not found for id=" + cabId);
+				throw new CabNotFoundException("cab not found for id=" + cabId);
 			}
 			
 			return new ResponseEntity<Cab>(cab,new HttpHeaders(),HttpStatus.OK);
@@ -68,6 +72,9 @@ import io.swagger.annotations.Api;
 		@PutMapping(path="/update")
 		public ResponseEntity<Cab> updateCab(@RequestBody Cab cab){
 			cab=service.updateCab(cab);
+	        if((cab.getCabId()==0)||(cab.getCarType()==null)||(cab.getPerKmRate()==0||(cab.getCarType().length()==0)))
+				throw new DriverNotFoundException("enter the cab Details to be updated");
+
 			return new ResponseEntity<Cab>(cab,new HttpHeaders(),HttpStatus.OK);
 		}
 
@@ -75,6 +82,9 @@ import io.swagger.annotations.Api;
 	@GetMapping(path="/getCarTypes")
 		public  ResponseEntity<List<Cab>> ViewAll(){
 			List<Cab> list=service.viewCabsOfType(String);
+			if(list.isEmpty())
+		 		throw new DriverNotFoundException("Oops!!The List is Empty");
+
 			return new ResponseEntity<List<Cab>>(list,new HttpHeaders(),HttpStatus.OK);
 		}
 		

@@ -1,22 +1,18 @@
 package com.capg.cba.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Cab")
-public class Cab extends AuditModel implements Serializable{
+public class Cab {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1736893392612608637L;
+
 	@Id
-	@GeneratedValue
 	private int cabId;
 	private String carType;
 	private float perKmRate;

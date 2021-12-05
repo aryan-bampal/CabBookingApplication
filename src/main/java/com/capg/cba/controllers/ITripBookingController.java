@@ -1,5 +1,6 @@
 package com.capg.cba.controllers;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.cba.entities.TripBooking;
+import com.capg.cba.exception.TripBookingNotFoundException;
+//import com.capg.cba.exception.CabNotFoundException;
+//import com.capg.cba.exception.DriverNotFoundException;
 import com.capg.cba.services.ITripBookingServiceI;
 
 import io.swagger.annotations.Api;
@@ -30,25 +34,34 @@ public class ITripBookingController {
 	ITripBookingServiceI itripbookingservicei;
 	
 	@PostMapping("/insert")
-	public ResponseEntity<Boolean> insert(@RequestBody TripBooking pro)
+	public ResponseEntity<Boolean> insert(@RequestBody TripBooking pro) throws TripBookingNotFoundException
 	{
+		if(pro.getTripBookingId()==0)
+			throw new TripBookingNotFoundException("Oops!!No Driver found for given Id");
 		itripbookingservicei.insertTripBooking(pro);
+		
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		System.out.println("response entity=" + responseEntity);
 		return responseEntity;
 	}
 	
 	@GetMapping("/viewall/{id}")  //localhost:9090/product/getall
-	public ResponseEntity<List<TripBooking>> viewall(@PathVariable int id)
+	public ResponseEntity<List<TripBooking>> viewall(@PathVariable int id) throws TripBookingNotFoundException
 	{
 		List<TripBooking> list=itripbookingservicei.ViewAllTripsCustomer(id);
+        if(list.isEmpty())
+ 		throw new TripBookingNotFoundException("Oops!!The List is Empty");
+
 		return new ResponseEntity<List<TripBooking>>(list,new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@PutMapping("/update")  //localhost:9090/product/update
-	public ResponseEntity<TripBooking> updateProduct(@RequestBody TripBooking booking)
+	public ResponseEntity<TripBooking> updateProduct(@RequestBody TripBooking booking) throws TripBookingNotFoundException
 	{
 		booking=itripbookingservicei.updateTripBooking(booking);
+		if(booking.getTripBookingId()==0)
+			throw new TripBookingNotFoundException("Oops!!No Driver found for given Id");
+
 		return new ResponseEntity<TripBooking>(booking,new HttpHeaders(),HttpStatus.OK);
 	}
 	
@@ -60,8 +73,13 @@ public class ITripBookingController {
 		
 	}
 	@GetMapping("/viewbill/{id}")
-	public float calculate(@PathVariable int id)
+	public float calculate(@PathVariable int id) throws TripBookingNotFoundException
+
 	{
+		if(id==0)
+			throw new TripBookingNotFoundException("Oops!!No Driver found for given Id");
+
+
 		return itripbookingservicei.calculateBill(id);
 	}
 }
