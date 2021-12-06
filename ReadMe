@@ -1,0 +1,423 @@
+
+                  Customer module
+                  
+http://localhost:9995/customer
+Post Method
+http://localhost:9995/customer/insert
+{
+    "customerId": 1,
+    "username": "soumya",
+    "password": "smya",
+    "address": "12",
+    "mobileNumber": 1234545667,
+    "email": "sou@gmail.com"
+}
+{
+    "customerId": 2,
+    "username": "Aryan",
+    "password": "12344",
+    "address": "167",
+    "mobileNumber": 1234545667,
+    "email": "aryan@gmail.com"
+}
+ {
+
+    "customerId": 3,
+    "username": "chandrika",
+    "password": "54",
+    "address": "167",
+    "mobileNumber": 12345667,
+    "email": "chandu@gmail.com"
+}
+
+Delete Method
+http://localhost:9995/customer/delete/{customerId}
+/delete/1
+/delete/2
+
+Get Method
+http://localhost:9995/customer/getAll
+
+PutMethod
+http://localhost:9995/customer/update
+{
+    "customerId": 1,
+    "username": "soumya",
+    "password": "smya",
+    "address": "12",
+    "mobileNumber": 1234545667,
+    "email": "sou@gmail.com"
+}
+
+Get Method
+http://localhost:9995/customer/viewCustomer/{customerId}
+/viewCustomer/1
+/viewCustomer/2
+/viewCustomer/3
+
+Get Method
+http://localhost:9995/customer/validateCustomer/{username}/{password}
+/validateCustomer/soumya/smya
+/validateCustomer/Aryan/12344
+
+                 Driver Module
+
+http://localhost:9995/driver
+
+Post Method
+http://localhost:9995/driver/insert
+{
+ "driverId":1,
+ "licenceNo":"uk1234",
+ "rating":4.6,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan@fake.com",
+ "cab":{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":13.4
+      }
+}
+{
+ "driverId":2,
+ "licenceNo":"ag9045",
+ "rating":3.8,
+ "username":"soumya",
+ "password":"password1",
+ "address":"india",
+ "mobileNumber":23423424,
+ "email":"soumya@fake.com",
+ "cab":{
+ "cabId":2,
+ "carType":"honda",
+ "perKmRate":12.4
+      }
+}
+
+Get Method
+http://localhost:9995/driver/viewDriver/{driverId}
+/viewDriver/1
+/viewDriver/2
+
+put Method
+/update
+{
+ "driverId":1,
+ "licenceNo":"uk1234",
+ "rating":4.6,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan@fake.com",
+ "cab":{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":13.4
+      }
+}
+{
+ "driverId":2,
+ "licenceNo":"ag9045",
+ "rating":3.8,
+ "username":"soumya",
+ "password":"password1",
+ "address":"india",
+ "mobileNumber":23423424,
+ "email":"soumya@fake.com",
+ "cab":{
+ "cabId":2,
+ "carType":"honda",
+ "perKmRate":12.4
+      }
+}
+
+Get Method
+http://localhost:9995/driver/getbestdrivers
+
+Delete Method
+http://localhost:9995/driver/delete/{driverId}
+/delete/1
+/delete/2
+
+
+                           Cab Module
+
+http://localhost:9995/Cab
+       
+Post Method                           
+http://localhost:9995/Cab/insert
+{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":13.4
+ }   
+{
+ "cabId":2,
+ "carType":"honda",
+ "perKmRate":12.4
+} 
+
+Get Method
+http://localhost:9995/Cab/getdetails/{cabId}
+/getdetails/1
+/getdetails/2
+
+Put Method
+http://localhost:9995/Cab/update
+{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":9.4
+ }
+{
+ "cabId":2,
+ "carType":"tesla",
+ "perKmRate":18.4
+} 
+
+Get MEthod
+http://localhost:9995/Cab/getCarTypes
+
+Get MEthod
+http://localhost:9995/Cab/countcartypes/{carType}
+/countcartypes/tesla
+/countcartypes/hundai
+
+Delete Method
+http://localhost:9995/Cab/delete/{cabId}
+/delete/1
+/delete/2
+
+
+                        Admin Module
+
+http://localhost:9995/admin
+
+Post Method
+http://localhost:9995/admin/insert
+{
+"adminId":1,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan@fake.com"
+}
+{
+"adminId":2,
+ "username":"soumya",
+ "password":"password1",
+ "address":"india",
+ "mobileNumber":23423424,
+ "email":"soumya@fake.com"
+}
+
+Put Update
+http://localhost:9995/admin/update
+{
+"adminId":1,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan1234@fake.com"
+}
+
+Delete Method
+http://localhost:9995/admin/delete/{id}
+/delete/1
+/delete/2
+
+Get Method
+http://localhost:9995/admin/alltrips/{id}
+/alltrips/1
+/alltrips/2
+
+Get Method
+http://localhost:9995/admin/tripscabwise
+
+Get Method
+http://localhost:9995/admin/tripscustomerwise
+
+Get Method
+http://localhost:9995/admin/tripsdatewise
+
+Get Method
+/alltripscustomerwise/1/2020-12-31T15:53:16/2021-01-24T15:53:16
+
+
+                          TripBooking module
+http://localhost:9995/TripBooking
+
+Post Method
+http://localhost:9995/TripBooking/insert
+{
+    "tripBookingId":1,
+    "customerId":1,
+    "driverId":1,
+    "fromLocation":"nagole",
+    "toLocation":"ammerpet",
+    "fromLocalDateTime":"2020-12-31T15:53:16",
+    "toLocalDateTime":"2021-01-24T15:53:16",
+    "status":false,
+    "distanceInKm":6.0,
+    "bill":34553.0,
+    "customer":{
+    "customerId": 1,
+    "username": "soumya",
+    "password": "smya",
+    "address": "12",
+    "mobileNumber": 1234545667,
+    "email": "sou@gmail.com"
+    },
+     "driver":{
+ "driverId":1,
+ "licenceNo":"uk1234",
+ "rating":4.6,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan@fake.com",
+ "cab":{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":13.4
+}
+}
+}
+  
+{
+    "tripBookingId":2,
+    "customerId":2,
+    "driverId":2,
+    "fromLocation":"nagole1",
+    "toLocation":"ammerpet1",
+    "fromLocalDateTime":"2020-12-31T15:53:16",
+    "toLocalDateTime":"2021-01-24T15:53:16",
+    "status":false,
+    "distanceInKm":6.0,
+    "bill":34553.0,
+    "customer":{
+    "customerId": 2,
+    "username": "Aryan",
+    "password": "12344",
+    "address": "167",
+    "mobileNumber": 1234545667,
+    "email": "aryan@gmail.com"
+    },
+     "driver":{
+  "driverId":2,
+ "licenceNo":"ag9045",
+ "rating":3.8,
+ "username":"soumya",
+ "password":"password1",
+ "address":"india",
+ "mobileNumber":23423424,
+ "email":"soumya@fake.com",
+ "cab":{
+ "cabId":2,
+ "carType":"honda",
+ "perKmRate":12.4
+      }
+}
+}
+  
+{
+    "tripBookingId":3,
+    "customerId":1,
+    "driverId":1,
+    "fromLocation":"nagole2",
+    "toLocation":"ammerpet2",
+    "fromLocalDateTime":"2020-12-31T15:53:16",
+    "toLocalDateTime":"2021-01-24T15:53:16",
+    "status":false,
+    "distanceInKm":6.0,
+    "bill":34553.0,
+    "customer":{
+    "customerId": 1,
+    "username": "soumya",
+    "password": "smya",
+    "address": "12",
+    "mobileNumber": 1234545667,
+    "email": "sou@gmail.com"
+    },
+     "driver":{
+"driverId":1,
+ "licenceNo":"uk1234",
+ "rating":4.6,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan@fake.com",
+ "cab":{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":13.4
+      }
+}
+}
+
+Get Method
+http://localhost:9995/TripBooking/viewall/{id}  
+/viewall/1
+/viewall/2
+/viewall/3
+
+
+Put Method
+http://localhost:9995/TripBooking/update  
+{
+    "tripBookingId":1,
+    "customerId":1,
+    "driverId":1,
+    "fromLocation":"nagole3",
+    "toLocation":"ammerpet3",
+    "fromLocalDateTime":"2020-12-31T15:53:16",
+    "toLocalDateTime":"2021-01-24T15:53:16",
+    "status":false,
+    "distanceInKm":8.0,
+    "bill":34523.0,
+    "customer":{
+    "customerId": 1,
+    "username": "soumya",
+    "password": "smya",
+    "address": "12",
+    "mobileNumber": 1234545667,
+    "email": "sou@gmail.com"
+    },
+     "driver":{
+ "driverId":1,
+ "licenceNo":"uk1234",
+ "rating":4.6,
+ "username":"aryan",
+ "password":"password",
+ "address":"india",
+ "mobileNumber":124123121,
+ "email":"aryan@fake.com",
+ "cab":{
+ "cabId":1,
+ "carType":"hundai",
+ "perKmRate":13.4
+}
+}
+}  
+  
+Delete Method
+http://localhost:9995/TripBooking/delete/{id} 
+delete/1
+delete/2
+
+Get Method
+http://localhost:9995/TripBooking/viewbill/{id}
+viewbill/1 
+viewbill/2
+viewbill/3
+
+
+             
